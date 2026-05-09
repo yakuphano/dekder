@@ -6,27 +6,23 @@ import { ADMIN_COOKIE_NAME, getAdminSessionSecret } from "@/lib/admin-session";
 
 export type AdminLoginState = { error?: string };
 
-const HARDCODED_USER = "admin";
-const HARDCODED_PASS = "dekder2026";
-
 export async function adminLogin(
   _prev: AdminLoginState,
   formData: FormData,
 ): Promise<AdminLoginState> {
-  const username = formData.get("username");
   const password = formData.get("password");
 
-  if (
-    typeof username !== "string" ||
-    typeof password !== "string" ||
-    username !== HARDCODED_USER ||
-    password !== HARDCODED_PASS
-  ) {
-    return { error: "Kullanıcı adı veya şifre hatalı." };
+  if (typeof password !== "string" || !password.trim()) {
+    return { error: "Geçersiz şifre" };
+  }
+
+  const expected = getAdminSessionSecret();
+  if (password !== expected) {
+    return { error: "Geçersiz şifre" };
   }
 
   const jar = await cookies();
-  jar.set(ADMIN_COOKIE_NAME, getAdminSessionSecret(), {
+  jar.set(ADMIN_COOKIE_NAME, expected, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
