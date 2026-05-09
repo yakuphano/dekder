@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { ADMIN_COOKIE_NAME, getAdminSessionSecret } from "@/lib/admin-session";
+
+/** Edge middleware: lib dosyası import etmeyin (Vercel Edge bundle). `lib/admin-session.ts` ile aynı değerler. */
+const ADMIN_COOKIE_NAME = "dekder_admin_session";
+
+function getAdminSessionSecret(): string {
+  return process.env.ADMIN_SESSION_TOKEN ?? "dekder-admin-prototype-token-2026";
+}
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -25,5 +31,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
+  runtime: "nodejs",
   matcher: ["/admin", "/admin/:path*"],
 };
