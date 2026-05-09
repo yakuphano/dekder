@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Member {
+  id          String   @id @default(cuid())
+  name        String
+  surname     String
+  email       String
+  phone       String
+  birthplace  String
+  profession  String
+  address     String
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("members")
+}
+
+model Donation {
+  id            String   @id @default(cuid())
+  donorName     String   @map("donor_name")
+  donorSurname  String   @map("donor_surname")
+  amount        Int
+  isAnonymous   Boolean  @default(false) @map("is_anonymous")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@map("donations")
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  imageUrl  String?  @map("image_url")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("posts")
+}
+
+model Feedback {
+  id          String   @id @default(cuid())
+  senderName  String   @map("sender_name")
+  email       String
+  subjectType String   @map("subject_type")
+  message     String
+  isRead      Boolean  @default(false) @map("is_read")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("feedbacks")
+}
+
+model Article {
+  id              String   @id @default(cuid())
+  title           String
+  content         String
+  authorName      String   @map("author_name")
+  authorTitle     String   @map("author_title")
+  authorImageUrl  String?  @map("author_image_url")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@map("articles")
+}

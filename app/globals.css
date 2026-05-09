@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --dekder-mountain: #0f2942;
+  --dekder-mountain-soft: #1e3a5f;
+  --dekder-red: #c8102e;
+  --dekder-red-bright: #e30a17;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+@keyframes dekder-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.dekder-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 4rem;
+  padding-right: 4rem;
+  animation: dekder-marquee 50s linear infinite;
+}
