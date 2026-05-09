@@ -39,6 +39,6 @@ export async function adminLogin(
 
 export async function adminLogout() {
   const jar = await cookies();
-  jar.delete(ADMIN_COOKIE_NAME, { path: "/" });
+  jar.delete(ADMIN_COOKIE_NAME);
   redirect("/admin/login");
 }
