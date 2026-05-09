@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  ExternalLink,
   LayoutDashboard,
   LogOut,
   Mail,
@@ -31,7 +32,7 @@ export function AdminSidebar() {
   const pathname = usePathname() ?? "";
 
   return (
-    <aside className="flex w-full shrink-0 flex-col border-r border-slate-200 bg-blue-950 text-white md:w-64">
+    <aside className="flex w-full shrink-0 flex-col border-r border-slate-200 bg-blue-950 text-white md:min-h-screen md:w-64">
       <div className="border-b border-white/10 px-5 py-6">
         <p className="text-xs font-semibold uppercase tracking-widest text-red-400">
           DEKDER
@@ -58,7 +59,14 @@ export function AdminSidebar() {
           );
         })}
       </nav>
-      <div className="border-t border-white/10 p-3">
+      <div className="mt-auto border-t border-white/10 p-3">
+        <Link
+          href="/"
+          className="mb-2 flex w-full items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/10 px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-white/15 hover:text-red-100"
+        >
+          <ExternalLink className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
+          Siteyi Görüntüle
+        </Link>
         <form action={adminLogout}>
           <button
             type="submit"

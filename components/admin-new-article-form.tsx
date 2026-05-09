@@ -59,7 +59,8 @@ export function AdminNewArticleForm() {
           className={fieldClass}
         />
         <span className="mt-1 block text-xs text-slate-500">
-          Harici görsel (ör. Unsplash). Boş bırakılırsa kayıtta boş kalır.
+          Varsayılan olarak örnek Unsplash adresi doldurulur. Alanı silerseniz yazar görseli
+          kaydedilmez.
         </span>
       </label>
 

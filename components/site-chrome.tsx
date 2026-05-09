@@ -2,16 +2,22 @@
 
 import { usePathname } from "next/navigation";
 import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { Navbar } from "@/components/navbar";
 
-export function SiteChrome({ children }: { children: React.ReactNode }) {
+export function SiteChrome({
+  children,
+  isAdminSession = false,
+}: {
+  children: React.ReactNode;
+  isAdminSession?: boolean;
+}) {
   const pathname = usePathname();
   if (pathname?.startsWith("/admin")) {
     return <>{children}</>;
   }
   return (
     <>
-      <Header />
+      <Navbar isAdminSession={isAdminSession} />
       <div className="flex flex-1 flex-col">{children}</div>
       <Footer />
     </>

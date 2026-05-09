@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteChrome } from "@/components/site-chrome";
+import { ADMIN_COOKIE_NAME, getAdminSessionSecret } from "@/lib/admin-session";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,18 +24,22 @@ export const metadata: Metadata = {
     "Eleşkirt kültürünü yaşatmak, dayanışmayı güçlendirmek ve toplumsal fayda üretmek için DEKDER yanınızda.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jar = await cookies();
+  const token = jar.get(ADMIN_COOKIE_NAME)?.value;
+  const isAdminSession = token === getAdminSessionSecret();
+
   return (
     <html
       lang="tr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-screen flex-col font-sans">
-        <SiteChrome>{children}</SiteChrome>
+        <SiteChrome isAdminSession={isAdminSession}>{children}</SiteChrome>
       </body>
     </html>
   );

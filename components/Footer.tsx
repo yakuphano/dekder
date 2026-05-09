@@ -81,8 +81,17 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10 bg-black/20">
-        <div className="mx-auto max-w-6xl px-4 py-4 text-center text-xs text-slate-400">
-          Copyright © 2026 DEKDER
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 py-4 text-center text-xs text-slate-400">
+          <span>Copyright © 2026 DEKDER</span>
+          <span className="text-slate-600/50" aria-hidden>
+            ·
+          </span>
+          <Link
+            href="/admin/login"
+            className="text-[10px] font-medium tracking-wide text-slate-500/70 transition hover:text-slate-400"
+          >
+            Yönetim
+          </Link>
         </div>
       </div>
     </footer>
