@@ -201,6 +201,40 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="relative z-10 border-b border-slate-200 bg-gradient-to-b from-white to-slate-50 py-12">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="flex flex-col items-center justify-center gap-8 md:flex-row md:items-start md:gap-10">
+            <article className="w-full max-w-[450px] overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md">
+              <div className="relative h-[550px] w-full bg-white">
+                <Image
+                  src="/afis.jpg"
+                  alt="DEKDER etkinlik afişi"
+                  fill
+                  className="object-contain object-center"
+                  sizes="450px"
+                />
+              </div>
+            </article>
+            <article className="w-full max-w-[450px] overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md">
+              <div className="relative h-[550px] w-full bg-white">
+                <Image
+                  src="/baskan-mesaj.jpg"
+                  alt="İkram Hano — Dernek Başkanı"
+                  fill
+                  className="object-contain object-center"
+                  sizes="450px"
+                />
+              </div>
+              <div className="border-t border-slate-100 bg-white px-3 py-3 text-center">
+                <p className="text-sm font-semibold text-blue-950">
+                  İkram Hano - Dernek Başkanı
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section className="relative z-20 -mt-2 border-y border-slate-200/80 bg-white shadow-md md:-mt-4">
         <div className="mx-auto max-w-6xl px-4 py-10 md:py-12">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
