@@ -118,30 +118,34 @@ const founders: Leader[] = [
 function PersonCard({
   person,
   sizes,
-  imageClassName = "aspect-[4/3]",
+  imageClassName = "aspect-[3/4] min-h-[220px]",
 }: {
   person: Leader;
   sizes: string;
   imageClassName?: string;
 }) {
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
-      <div className={`relative w-full bg-slate-200 ${imageClassName}`}>
+    <article className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
+      <div className={`relative w-full bg-slate-100 ${imageClassName}`}>
         <Image
           src={person.imageUrl}
           alt={`${person.name} — ${person.role}`}
           fill
-          className="object-cover"
+          className="object-contain object-top"
           sizes={sizes}
         />
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-blue-950/95 to-transparent p-4 pt-14">
-          <h3 className="text-lg font-bold text-white md:text-xl">{person.name}</h3>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-red-300">
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-blue-950/65 to-transparent"
+          aria-hidden
+        />
+        <div className="absolute inset-x-0 bottom-0 p-4 pb-3">
+          <h3 className="text-lg font-bold text-white drop-shadow-sm md:text-xl">{person.name}</h3>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-red-200/95">
             {person.role}
           </p>
         </div>
       </div>
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-col p-5">
         <p className="text-sm leading-relaxed text-slate-600">{person.bio}</p>
       </div>
     </article>
@@ -172,20 +176,24 @@ export default function YonetimPage() {
         <section className="mx-auto max-w-xl">
           <h2 className="sr-only">Dernek başkanı</h2>
           <article className="overflow-hidden rounded-2xl border-2 border-amber-400/60 bg-white shadow-2xl shadow-blue-950/15 ring-2 ring-blue-900/20 transition duration-200 hover:-translate-y-1 hover:shadow-blue-950/25">
-            <div className="relative aspect-[16/10] w-full bg-slate-200 ring-1 ring-inset ring-slate-300/80 md:aspect-[5/3]">
+            <div className="relative aspect-[3/4] w-full min-h-[280px] bg-slate-100 ring-1 ring-inset ring-slate-300/80 sm:aspect-[4/5]">
               <Image
                 src={president.imageUrl}
                 alt={`${president.name} — ${president.role}`}
                 fill
-                className="object-cover object-center"
+                className="object-contain object-top"
                 priority
                 sizes="(max-width: 768px) 100vw, 576px"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-blue-950 to-transparent p-6 pt-24 md:pt-28">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-300">
+              <div
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-[26%] max-h-40 bg-gradient-to-t from-blue-950/60 to-transparent"
+                aria-hidden
+              />
+              <div className="absolute inset-x-0 bottom-0 p-5 pb-5 md:p-6 md:pb-6">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-300 drop-shadow-sm">
                   Dernek Başkanı
                 </p>
-                <h3 className="mt-2 text-2xl font-bold text-white md:text-3xl">
+                <h3 className="mt-2 text-2xl font-bold text-white drop-shadow-md md:text-3xl">
                   {president.name}
                 </h3>
               </div>
