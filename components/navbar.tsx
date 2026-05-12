@@ -39,23 +39,10 @@ export function Navbar({ isAdminSession = false }: NavbarProps) {
   }, [open]);
 
   return (
-    <div className="sticky top-0 z-50">
-      {isAdminSession ? (
-        <div className="border-b border-white/10 bg-blue-950 text-center shadow-md">
-          <Link
-            href="/admin"
-            className="inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold tracking-wide text-white transition hover:bg-white/10 sm:text-sm"
-          >
-            <span className="select-none" aria-hidden>
-              ⚙️
-            </span>
-            Yönetim Paneli
-          </Link>
-        </div>
-      ) : null}
-
-      <header className="border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80">
-        <div className="mx-auto flex min-h-[4rem] max-w-6xl items-center justify-between gap-4 px-4 py-3">
+    <>
+      <div className="sticky top-0 z-50">
+        <header className="border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80">
+          <div className="mx-auto flex min-h-[4rem] max-w-6xl items-center justify-between gap-4 px-4 py-3">
           <Link
             href="/"
             className="flex min-w-0 shrink items-center gap-3"
@@ -108,50 +95,69 @@ export function Navbar({ isAdminSession = false }: NavbarProps) {
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
-        </div>
-
-        {open ? (
-          <div
-            id="mobile-menu"
-            className="border-t border-slate-200 bg-white md:hidden"
-          >
-            <nav
-              className="mx-auto max-w-6xl space-y-1 px-4 py-4"
-              aria-label="Mobil menü"
-            >
-              <ul className="flex flex-col gap-1">
-                {navItems.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="block rounded-lg px-3 py-3 text-base font-medium text-slate-800 hover:bg-slate-50"
-                      onClick={() => setOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4">
-                <Link
-                  href="/uye-ol"
-                  className={ctaMember}
-                  onClick={() => setOpen(false)}
-                >
-                  Üye Ol
-                </Link>
-                <Link
-                  href="/bagis"
-                  className={ctaDonate}
-                  onClick={() => setOpen(false)}
-                >
-                  Bağış Yap
-                </Link>
-              </div>
-            </nav>
           </div>
-        ) : null}
-      </header>
-    </div>
+
+          {open ? (
+            <div
+              id="mobile-menu"
+              className="border-t border-slate-200 bg-white md:hidden"
+            >
+              <nav
+                className="mx-auto max-w-6xl space-y-1 px-4 py-4"
+                aria-label="Mobil menü"
+              >
+                <ul className="flex flex-col gap-1">
+                  {navItems.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="block rounded-lg px-3 py-3 text-base font-medium text-slate-800 hover:bg-slate-50"
+                        onClick={() => setOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4">
+                  <Link
+                    href="/uye-ol"
+                    className={ctaMember}
+                    onClick={() => setOpen(false)}
+                  >
+                    Üye Ol
+                  </Link>
+                  <Link
+                    href="/bagis"
+                    className={ctaDonate}
+                    onClick={() => setOpen(false)}
+                  >
+                    Bağış Yap
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          ) : null}
+        </header>
+      </div>
+
+      {isAdminSession ? (
+        <div
+          className="fixed bottom-0 left-0 right-0 z-[60] border-t border-white/10 bg-blue-950/98 shadow-[0_-2px_12px_rgba(15,23,42,0.25)] backdrop-blur-sm supports-[backdrop-filter]:bg-blue-950/95"
+          role="navigation"
+          aria-label="Yönetim kısayolu"
+        >
+          <Link
+            href="/admin"
+            className="inline-flex w-full max-w-6xl items-center justify-center gap-1 px-3 py-0.5 text-[10px] font-semibold leading-tight tracking-wide text-white/95 transition hover:bg-white/10 sm:text-[11px]"
+          >
+            <span className="select-none text-[9px] opacity-90 sm:text-[10px]" aria-hidden>
+              ⚙️
+            </span>
+            Yönetim Paneli
+          </Link>
+        </div>
+      ) : null}
+    </>
   );
 }

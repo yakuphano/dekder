@@ -19,8 +19,7 @@ const president: Leader = {
   name: "Murat Yıldız",
   role: "Dernek Başkanı",
   bio: "Sivil toplum ve yerel kalkınma alanında yıllara dayanan deneyimiyle DEKDER’in stratejik yönetimini üstlenmekte; hemşehrilerimizi bir araya getiren projelere öncülük etmektedir.",
-  imageUrl:
-    "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80",
+  imageUrl: "/baskan-resmi.jpg",
 };
 
 const vicePresidents: Leader[] = [
@@ -173,12 +172,12 @@ export default function YonetimPage() {
         <section className="mx-auto max-w-xl">
           <h2 className="sr-only">Dernek başkanı</h2>
           <article className="overflow-hidden rounded-2xl border-2 border-amber-400/60 bg-white shadow-2xl shadow-blue-950/15 ring-2 ring-blue-900/20 transition duration-200 hover:-translate-y-1 hover:shadow-blue-950/25">
-            <div className="relative aspect-[16/10] w-full bg-slate-200 md:aspect-[5/3]">
+            <div className="relative aspect-[16/10] w-full bg-slate-200 ring-1 ring-inset ring-slate-300/80 md:aspect-[5/3]">
               <Image
                 src={president.imageUrl}
                 alt={`${president.name} — ${president.role}`}
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 priority
                 sizes="(max-width: 768px) 100vw, 576px"
               />

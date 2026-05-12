@@ -18,8 +18,16 @@ export function SiteChrome({
   return (
     <>
       <Navbar isAdminSession={isAdminSession} />
-      <div className="flex flex-1 flex-col">{children}</div>
-      <Footer />
+      <div
+        className={
+          isAdminSession
+            ? "flex min-h-0 flex-1 flex-col pb-8 sm:pb-9"
+            : "flex min-h-0 flex-1 flex-col"
+        }
+      >
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col">{children}</div>
+        <Footer />
+      </div>
     </>
   );
 }
