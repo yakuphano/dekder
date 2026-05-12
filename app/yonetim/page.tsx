@@ -16,7 +16,7 @@ type Leader = {
 };
 
 const president: Leader = {
-  name: "Murat Yıldız",
+  name: "İkram Hano",
   role: "Dernek Başkanı",
   bio: "Sivil toplum ve yerel kalkınma alanında yıllara dayanan deneyimiyle DEKDER’in stratejik yönetimini üstlenmekte; hemşehrilerimizi bir araya getiren projelere öncülük etmektedir.",
   imageUrl: "/baskan-resmi.jpg",
@@ -118,14 +118,14 @@ const founders: Leader[] = [
 function PersonCard({
   person,
   sizes,
-  imageClassName = "aspect-[3/4] min-h-[220px]",
+  imageClassName = "aspect-[3/4]",
 }: {
   person: Leader;
   sizes: string;
   imageClassName?: string;
 }) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
+    <article className="mx-auto flex w-full max-w-[320px] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
       <div className={`relative w-full bg-slate-100 ${imageClassName}`}>
         <Image
           src={person.imageUrl}
@@ -135,18 +135,18 @@ function PersonCard({
           sizes={sizes}
         />
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-blue-950/65 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-blue-950/65 to-transparent"
           aria-hidden
         />
-        <div className="absolute inset-x-0 bottom-0 p-4 pb-3">
-          <h3 className="text-lg font-bold text-white drop-shadow-sm md:text-xl">{person.name}</h3>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-red-200/95">
+        <div className="absolute inset-x-0 bottom-0 px-3 pb-2 pt-1">
+          <h3 className="text-base font-bold text-white drop-shadow-sm">{person.name}</h3>
+          <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wide text-red-200/95">
             {person.role}
           </p>
         </div>
       </div>
-      <div className="flex flex-col p-5">
-        <p className="text-sm leading-relaxed text-slate-600">{person.bio}</p>
+      <div className="flex flex-col px-3 py-3">
+        <p className="text-xs leading-snug text-slate-600">{person.bio}</p>
       </div>
     </article>
   );
@@ -173,33 +173,33 @@ export default function YonetimPage() {
 
       <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
         {/* Başkan */}
-        <section className="mx-auto max-w-xl">
+        <section className="mx-auto w-full max-w-[320px]">
           <h2 className="sr-only">Dernek başkanı</h2>
           <article className="overflow-hidden rounded-2xl border-2 border-amber-400/60 bg-white shadow-2xl shadow-blue-950/15 ring-2 ring-blue-900/20 transition duration-200 hover:-translate-y-1 hover:shadow-blue-950/25">
-            <div className="relative aspect-[3/4] w-full min-h-[280px] bg-slate-100 ring-1 ring-inset ring-slate-300/80 sm:aspect-[4/5]">
+            <div className="relative aspect-[3/4] w-full bg-slate-100 ring-1 ring-inset ring-slate-300/80">
               <Image
                 src={president.imageUrl}
                 alt={`${president.name} — ${president.role}`}
                 fill
                 className="object-contain object-top"
                 priority
-                sizes="(max-width: 768px) 100vw, 576px"
+                sizes="320px"
               />
               <div
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-[26%] max-h-40 bg-gradient-to-t from-blue-950/60 to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-blue-950/60 to-transparent"
                 aria-hidden
               />
-              <div className="absolute inset-x-0 bottom-0 p-5 pb-5 md:p-6 md:pb-6">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-300 drop-shadow-sm">
+              <div className="absolute inset-x-0 bottom-0 px-3 pb-2.5 pt-1">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-300 drop-shadow-sm">
                   Dernek Başkanı
                 </p>
-                <h3 className="mt-2 text-2xl font-bold text-white drop-shadow-md md:text-3xl">
+                <h3 className="mt-1 text-lg font-bold text-white drop-shadow-md md:text-xl">
                   {president.name}
                 </h3>
               </div>
             </div>
-            <div className="border-t border-slate-100 p-6 md:p-8">
-              <p className="text-base leading-relaxed text-slate-700">{president.bio}</p>
+            <div className="border-t border-slate-100 px-3 py-3 md:px-3.5 md:py-3.5">
+              <p className="text-sm leading-snug text-slate-700">{president.bio}</p>
             </div>
           </article>
         </section>
