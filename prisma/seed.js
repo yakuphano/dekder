@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.post.deleteMany();
   await prisma.donation.deleteMany();
+  await prisma.galleryImage.deleteMany();
 
   await prisma.post.createMany({
     data: [

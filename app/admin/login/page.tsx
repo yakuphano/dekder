@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function AdminLoginPage() {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12">
+    <div className="relative flex min-h-screen min-w-0 flex-col items-center justify-center overflow-x-hidden px-3 py-10 sm:px-4 sm:py-12">
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900"
         aria-hidden
@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-blue-950 shadow-lg ring-2 ring-red-600/30">
             <Shield className="h-8 w-8" aria-hidden />
           </div>
-          <h1 className="mt-6 text-3xl font-bold tracking-tight text-white drop-shadow-sm">
+          <h1 className="mt-6 text-2xl font-bold tracking-tight text-white drop-shadow-sm sm:text-3xl">
             Yönetim girişi
           </h1>
           <p className="mt-3 text-sm font-medium text-blue-100/90">

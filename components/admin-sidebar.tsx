@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ExternalLink,
+  Images,
   LayoutDashboard,
   LogOut,
   Mail,
@@ -21,6 +22,7 @@ const nav = [
   { href: "/admin/mesajlar", label: "Mesajlar", icon: Mail },
   { href: "/admin/duyurular", label: "Duyurular", icon: Megaphone },
   { href: "/admin/kose-yazilari", label: "Köşe Yazıları", icon: PenTool },
+  { href: "/admin/galeri", label: "Galeri", icon: Images },
 ];
 
 function isActive(pathname: string, href: string, exact?: boolean) {
@@ -32,14 +34,14 @@ export function AdminSidebar() {
   const pathname = usePathname() ?? "";
 
   return (
-    <aside className="flex w-full shrink-0 flex-col border-r border-slate-200 bg-blue-950 text-white md:min-h-screen md:w-64">
-      <div className="border-b border-white/10 px-5 py-6">
+    <aside className="flex w-full min-w-0 shrink-0 flex-col border-b border-slate-200 bg-blue-950 text-white md:min-h-screen md:w-64 md:border-b-0 md:border-r md:border-slate-200">
+      <div className="border-b border-white/10 px-4 py-4 md:px-5 md:py-6">
         <p className="text-xs font-semibold uppercase tracking-widest text-red-400">
           DEKDER
         </p>
-        <p className="mt-1 text-lg font-bold">Yönetim paneli</p>
+        <p className="mt-1 text-base font-bold md:text-lg">Yönetim paneli</p>
       </div>
-      <nav className="flex flex-1 flex-col gap-1 p-3">
+      <nav className="flex flex-1 flex-col gap-0.5 p-2 md:gap-1 md:p-3">
         {nav.map((item) => {
           const active = isActive(pathname, item.href, item.exact);
           const Icon = item.icon;

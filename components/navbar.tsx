@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { LayoutDashboard, Menu, X } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/eleskirt", label: "Eleşkirt" },
+  { href: "/galeri", label: "Galeri" },
   { href: "/koylerimiz", label: "Köylerimiz" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/yonetim", label: "Yönetim" },
@@ -16,14 +17,11 @@ const navItems = [
   { href: "/iletisim", label: "İletişim" },
 ];
 
-/** Tek satır menü: text-sm üstüne çıkma, yatay padding minimum */
 const navLinkClass =
   "whitespace-nowrap rounded-md px-1 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-[var(--dekder-mountain)] lg:px-1.5 xl:px-2";
 
-const ctaMember =
-  "whitespace-nowrap rounded-lg bg-blue-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700";
-const ctaDonate =
-  "whitespace-nowrap rounded-lg bg-red-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm transition hover:bg-red-700";
+const adminPanelLinkClass =
+  "inline-flex shrink-0 items-center gap-2 rounded-lg bg-blue-950 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-900";
 
 export type NavbarProps = {
   isAdminSession?: boolean;
@@ -40,12 +38,21 @@ export function Navbar({ isAdminSession = false }: NavbarProps) {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <>
       <div className="sticky top-0 z-50 w-full">
-        <header className="border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80">
-          <div className="flex w-full items-center justify-between gap-2 px-4 py-3 lg:min-h-[4rem] lg:gap-3 lg:px-12">
-            <div className="flex w-[200px] flex-none items-center justify-start">
+        <header className="border-b border-slate-200 bg-slate-50 shadow-sm">
+          <div className="flex w-full min-w-0 items-center justify-between gap-2 px-3 py-3 sm:px-4 lg:min-h-[4rem] lg:gap-3 lg:px-12">
+            <div className="flex min-w-0 flex-1 items-center justify-start lg:w-[200px] lg:flex-none">
               <Link
                 href="/"
                 className="flex min-w-0 max-w-full items-center gap-2"
@@ -80,83 +87,90 @@ export function Navbar({ isAdminSession = false }: NavbarProps) {
               </ul>
             </nav>
 
-            <div className="hidden w-[250px] flex-none items-center justify-end gap-2 lg:flex">
-              <Link href="/uye-ol" className={ctaMember}>
-                Üye Ol
-              </Link>
-              <Link href="/bagis" className={ctaDonate}>
-                Bağış Yap
-              </Link>
-            </div>
+            {isAdminSession ? (
+              <div className="hidden shrink-0 items-center lg:flex">
+                <Link href="/admin" className={adminPanelLinkClass}>
+                  <LayoutDashboard className="h-4 w-4 opacity-90" aria-hidden />
+                  Yönetim paneli
+                </Link>
+              </div>
+            ) : null}
 
-            <button
-              type="button"
-              className="inline-flex shrink-0 rounded-lg p-2 text-slate-800 hover:bg-slate-100 lg:hidden"
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
-              onClick={() => setOpen((v) => !v)}
-            >
-              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 lg:gap-3">
+              {isAdminSession ? (
+                <Link
+                  href="/admin"
+                  title="Yönetim paneline git"
+                  className={`${adminPanelLinkClass} lg:hidden whitespace-nowrap text-xs sm:text-sm`}
+                >
+                  <LayoutDashboard className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
+                  <span className="inline sm:hidden">Panel</span>
+                  <span className="hidden sm:inline">Yönetim paneli</span>
+                </Link>
+              ) : null}
+              <button
+                type="button"
+                className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] shrink-0 items-center justify-center rounded-lg text-slate-800 hover:bg-slate-100 lg:hidden"
+                aria-expanded={open}
+                aria-controls="mobile-nav-drawer"
+                aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
+                onClick={() => setOpen((v) => !v)}
+              >
+                {open ? <X className="h-6 w-6" aria-hidden /> : <Menu className="h-6 w-6" aria-hidden />}
+              </button>
+            </div>
           </div>
-
-          {open ? (
-            <div
-              id="mobile-menu"
-              className="border-t border-slate-200 bg-white lg:hidden"
-            >
-              <nav className="w-full space-y-1 px-4 py-4 lg:px-12" aria-label="Mobil menü">
-                <ul className="flex flex-col gap-1">
-                  {navItems.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className="block rounded-lg px-3 py-3 text-base font-medium text-slate-800 hover:bg-slate-50"
-                        onClick={() => setOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4">
-                  <Link
-                    href="/uye-ol"
-                    className={ctaMember}
-                    onClick={() => setOpen(false)}
-                  >
-                    Üye Ol
-                  </Link>
-                  <Link
-                    href="/bagis"
-                    className={ctaDonate}
-                    onClick={() => setOpen(false)}
-                  >
-                    Bağış Yap
-                  </Link>
-                </div>
-              </nav>
-            </div>
-          ) : null}
         </header>
       </div>
 
-      {isAdminSession ? (
-        <div
-          className="fixed bottom-0 left-0 right-0 z-[60] border-t border-white/10 bg-blue-950/98 shadow-[0_-2px_12px_rgba(15,23,42,0.25)] backdrop-blur-sm supports-[backdrop-filter]:bg-blue-950/95"
-          role="navigation"
-          aria-label="Yönetim kısayolu"
-        >
-          <Link
-            href="/admin"
-            className="inline-flex w-full max-w-6xl items-center justify-center gap-1 px-3 py-0.5 text-[10px] font-semibold leading-tight tracking-wide text-white/95 transition hover:bg-white/10 sm:text-[11px]"
-          >
-            <span className="select-none text-[9px] opacity-90 sm:text-[10px]" aria-hidden>
-              ⚙️
-            </span>
-            Yönetim Paneli
-          </Link>
+      {open ? (
+        <div className="fixed inset-0 z-[100] lg:hidden" id="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Site menüsü">
+          <button
+            type="button"
+            className="absolute inset-0 bg-slate-900/50 backdrop-blur-[1px]"
+            aria-label="Menüyü kapat"
+            onClick={() => setOpen(false)}
+          />
+          <div className="absolute inset-y-0 right-0 flex w-[min(100vw,20rem)] max-w-full flex-col bg-white shadow-2xl ring-1 ring-black/5">
+            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
+              <span className="text-sm font-bold text-blue-950">Menü</span>
+              <button
+                type="button"
+                className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100"
+                onClick={() => setOpen(false)}
+                aria-label="Kapat"
+              >
+                <X className="h-6 w-6" aria-hidden />
+              </button>
+            </div>
+            <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-3" aria-label="Mobil menü">
+              <ul className="flex flex-col gap-0.5">
+                {navItems.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="block rounded-xl px-3 py-3.5 text-base font-medium leading-snug text-slate-800 active:bg-slate-100"
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              {isAdminSession ? (
+                <div className="mt-4 border-t border-slate-100 pt-4">
+                  <Link
+                    href="/admin"
+                    className={`${adminPanelLinkClass} w-full justify-center py-3.5`}
+                    onClick={() => setOpen(false)}
+                  >
+                    <LayoutDashboard className="h-5 w-5 opacity-90" aria-hidden />
+                    Yönetim paneli
+                  </Link>
+                </div>
+              ) : null}
+            </nav>
+          </div>
         </div>
       ) : null}
     </>

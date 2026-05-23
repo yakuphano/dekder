@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { User } from "lucide-react";
 
+/** Görselleri değiştirdiğinizde bu sayıyı artırın (tarayıcı / CDN önbelleğini kırar). */
+const MAYOR_PORTRAIT_VERSION = "20260214";
+
+function mayorPortraitSrc(path: string): string {
+  const sep = path.includes("?") ? "&" : "?";
+  return `${path}${sep}v=${MAYOR_PORTRAIT_VERSION}`;
+}
+
 export const metadata: Metadata = {
   title: "Belediye Başkanlarımız",
   description:
@@ -28,56 +36,56 @@ const belediyeBaskanlari: BelediyeBaskaniKaydi[] = [
   {
     name: "Ramazan Yakut",
     periods: ["2019 - 2024", "2024 - Günümüz"],
-    imageUrl: null,
+    imageUrl: "/ramazanyakut.png",
     sortKey: 2024,
     isCurrent: true,
   },
   {
     name: "Sebahattin Sarı",
     periods: ["1984 - 1989", "1989 - 1994", "2014 - 2019"],
-    imageUrl: null,
+    imageUrl: "/sebahattinsarı.png",
     sortKey: 2019,
     isCurrent: false,
   },
   {
     name: "Mehmet Nuri Çelik",
     periods: ["1994 - 1999", "2009 - 2014"],
-    imageUrl: null,
+    imageUrl: "/nuricelik.png",
     sortKey: 2014,
     isCurrent: false,
   },
   {
     name: "Sait Yami",
     periods: ["1999 - 2004", "2004 - 2009"],
-    imageUrl: null,
+    imageUrl: "/saityami.png",
     sortKey: 2009,
     isCurrent: false,
   },
   {
     name: "Selahattin Sarayhanoğlu",
     periods: ["1963 - 1968", "1968 - 1973", "1977 - 1980"],
-    imageUrl: null,
+    imageUrl: "/selahattinsarayhanoglu.png",
     sortKey: 1980,
     isCurrent: false,
   },
   {
     name: "Ali Aral",
     periods: ["1973 - 1977"],
-    imageUrl: null,
+    imageUrl: "/aliaral.png",
     sortKey: 1977,
     isCurrent: false,
   },
   {
     name: "Mehmet Dişçi",
     periods: ["1956 - 1963"],
-    imageUrl: null,
+    imageUrl: "/mehmetdisci.png",
     sortKey: 1963,
     isCurrent: false,
   },
   {
     name: "Ahmet Tekin",
     periods: ["1948 - 1956"],
-    imageUrl: null,
+    imageUrl: "/ahmettekin.png",
     sortKey: 1956,
     isCurrent: false,
   },
@@ -100,11 +108,12 @@ function MayorCard({ mayor }: { mayor: BelediyeBaskaniKaydi }) {
       <div className="relative w-full shrink-0 aspect-[3/4] overflow-hidden rounded-t-xl bg-slate-50">
         {mayor.imageUrl ? (
           <Image
-            src={mayor.imageUrl}
+            src={mayorPortraitSrc(mayor.imageUrl)}
             alt={`${mayor.name} — Eleşkirt Belediye Başkanı`}
             fill
             className="object-cover object-top"
             sizes="280px"
+            unoptimized
           />
         ) : (
           <div
@@ -164,8 +173,8 @@ export default function BelediyeBaskanlariPage() {
       </div>
 
       <div className="border-b border-slate-200 bg-slate-50">
-        <div className="mx-auto max-w-3xl px-4 py-7 md:py-9">
-          <p className="text-center text-sm italic leading-relaxed text-gray-600 md:text-base md:leading-relaxed">
+        <div className="mx-auto max-w-4xl px-4 py-7 md:py-9">
+          <p className="text-center text-base italic leading-relaxed text-gray-600 md:text-lg md:leading-relaxed lg:text-xl lg:leading-relaxed">
             Eleşkirt&apos;imizin tarihinde iz bırakan, ilçemizin kalkınması ve refahı için emek vermiş,
             halkımızın iradesiyle göreve gelmiş tüm Belediye Başkanlarımızı saygı ve minnetle
             anıyoruz. Bu sayfa, geçmişten günümüze hizmet meşalesini taşıyan kıymetli büyüklerimize

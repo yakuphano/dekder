@@ -27,7 +27,7 @@ export default async function DuyurularPage() {
   const posts = await loadPosts();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <div className="mx-auto max-w-6xl px-3 py-10 sm:px-4 md:py-16">
       <header className="max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-widest text-[var(--dekder-red)]">
           Duyurular
@@ -43,11 +43,7 @@ export default async function DuyurularPage() {
       <ul className="mt-10 space-y-4">
         {posts.length === 0 ? (
           <li className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-sm text-slate-600">
-            Henüz kayıtlı duyuru yok. Yerelde{" "}
-            <code className="rounded bg-slate-100 px-1.5 py-0.5 text-xs">
-              npx prisma db push && npm run db:seed
-            </code>{" "}
-            komutlarıyla veritabanını hazırlayabilirsiniz.
+            Henüz duyuru yok.
           </li>
         ) : (
           posts.map((p) => (

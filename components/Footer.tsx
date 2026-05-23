@@ -7,6 +7,7 @@ const quickLinks = [
   { href: "/yonetim", label: "Yönetim" },
   { href: "/duyurular", label: "Duyurular" },
   { href: "/eleskirt", label: "Eleşkirt" },
+  { href: "/galeri", label: "Galeri" },
   { href: "/iletisim", label: "İletişim" },
   { href: "/uye-ol", label: "Üye Ol" },
   { href: "/bagis", label: "Bağış Yap" },
@@ -14,8 +15,8 @@ const quickLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-auto bg-blue-950 text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3">
+    <footer className="mt-auto min-w-0 bg-blue-950 text-white">
+      <div className="mx-auto grid max-w-6xl gap-10 px-3 py-10 sm:px-4 md:grid-cols-3 md:py-12">
         <div className="space-y-4">
           <Link href="/" className="inline-flex items-center gap-3">
             <Image
@@ -81,7 +82,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10 bg-black/20">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 py-4 text-center text-xs text-slate-400">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-3 py-4 text-center text-xs text-slate-400 sm:px-4">
           <span>Copyright © 2026 DEKDER</span>
           <span className="text-slate-600/50" aria-hidden>
             ·

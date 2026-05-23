@@ -2,19 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { HomeArticlesSidebar } from "@/components/home-articles-sidebar";
-import { DonationMarquee } from "@/components/donation-marquee";
-import type { DonationThankYouInput } from "@/lib/donation-text";
+import { donationThankYouLine, type DonationThankYouInput } from "@/lib/donation-text";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
 const heroImage = "/eleskirt-manzara.jpg";
-
-const fallbackDonations: DonationThankYouInput[] = [
-  { donorName: "Ahmet", donorSurname: "Yılmaz", amount: 500, isAnonymous: false },
-  { donorName: "Ayşe", donorSurname: "Demir", amount: 250, isAnonymous: false },
-  { donorName: "Mehmet", donorSurname: "Kaya", amount: 1000, isAnonymous: true },
-];
 
 const mockNews = [
   {
@@ -65,35 +58,30 @@ function excerptFromContent(text: string, max = 160): string {
   return `${t.slice(0, max - 1)}…`;
 }
 
-async function loadDonationsForMarquee(): Promise<{
-  donations: DonationThankYouInput[];
-  usedFallback: boolean;
-}> {
+type DonationWithId = DonationThankYouInput & { id: string };
+
+async function loadRecentDonations(): Promise<DonationWithId[]> {
   try {
     const rows = await prisma.donation.findMany({
       orderBy: { createdAt: "desc" },
-      take: 15,
+      take: 12,
       select: {
+        id: true,
         donorName: true,
         donorSurname: true,
         amount: true,
         isAnonymous: true,
       },
     });
-    if (rows.length === 0) {
-      return { donations: fallbackDonations, usedFallback: true };
-    }
-    return {
-      donations: rows.map((d) => ({
-        donorName: d.donorName,
-        donorSurname: d.donorSurname,
-        amount: d.amount,
-        isAnonymous: d.isAnonymous,
-      })),
-      usedFallback: false,
-    };
+    return rows.map((d) => ({
+      id: d.id,
+      donorName: d.donorName,
+      donorSurname: d.donorSurname,
+      amount: d.amount,
+      isAnonymous: d.isAnonymous,
+    }));
   } catch {
-    return { donations: fallbackDonations, usedFallback: true };
+    return [];
   }
 }
 
@@ -116,48 +104,35 @@ async function loadHomeArticles() {
   }
 }
 
-async function loadNewsCards(): Promise<{
-  cards: NewsCard[];
-  usedFallback: boolean;
-}> {
+async function loadNewsCards(): Promise<NewsCard[]> {
   try {
     const posts = await prisma.post.findMany({
       orderBy: { createdAt: "desc" },
       take: 3,
     });
     if (posts.length === 0) {
-      return { cards: mockNews, usedFallback: true };
+      return mockNews;
     }
-    return {
-      cards: posts.map((p) => ({
-        id: p.id,
-        date: dateFmt.format(p.createdAt),
-        dateIso: p.createdAt.toISOString().slice(0, 10),
-        title: p.title,
-        excerpt: excerptFromContent(p.content),
-        href: `/duyurular/${p.id}`,
-      })),
-      usedFallback: false,
-    };
+    return posts.map((p) => ({
+      id: p.id,
+      date: dateFmt.format(p.createdAt),
+      dateIso: p.createdAt.toISOString().slice(0, 10),
+      title: p.title,
+      excerpt: excerptFromContent(p.content),
+      href: `/duyurular/${p.id}`,
+    }));
   } catch {
-    return { cards: mockNews, usedFallback: true };
+    return mockNews;
   }
 }
 
 export default async function Home() {
-  const [
-    { donations: donationsForMarquee, usedFallback: donationFallback },
-    { cards: newsCards, usedFallback: newsFallback },
-    homeArticles,
-  ] = await Promise.all([
-    loadDonationsForMarquee(),
-    loadNewsCards(),
-    loadHomeArticles(),
-  ]);
+  const [recentDonations, newsCards, homeArticles] =
+    await Promise.all([loadRecentDonations(), loadNewsCards(), loadHomeArticles()]);
 
   return (
     <div className="bg-slate-50">
-      <section className="relative min-h-[min(100vh,640px)] md:min-h-[560px]">
+      <section className="relative min-h-[min(88svh,560px)] md:min-h-[560px]">
         <Image
           src={heroImage}
           alt="Eleşkirt ilçesi genel manzarası ve Kösedağ"
@@ -170,11 +145,11 @@ export default async function Home() {
           className="absolute inset-0 bg-gradient-to-b from-blue-950/80 via-blue-950/75 to-blue-950/85"
           aria-hidden
         />
-        <div className="relative z-10 mx-auto flex max-w-6xl flex-col justify-center px-4 py-20 md:min-h-[560px] md:py-24">
+        <div className="relative z-10 mx-auto flex max-w-6xl flex-col justify-center px-3 py-16 sm:px-4 md:min-h-[560px] md:py-24">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-white/80">
             Kültür · Dayanışma · Eleşkirt
           </p>
-          <h1 className="mt-4 max-w-4xl text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl md:leading-tight">
+          <h1 className="mt-4 max-w-4xl text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-5xl md:leading-tight">
             Dünya Eleşkirt Kültür ve Dayanışma Derneği&apos;ne Hoş Geldiniz
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
@@ -201,92 +176,75 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="relative z-10 border-b border-slate-200 bg-gradient-to-b from-white to-slate-50 py-12">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="flex flex-col items-center justify-center gap-8 md:flex-row md:items-start md:gap-10">
-            <article className="w-full max-w-[450px] overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md">
-              <div className="relative h-[550px] w-full bg-white">
+      <section className="relative z-10 border-b border-slate-200 bg-gradient-to-b from-white to-slate-50 py-8 sm:py-12">
+        <div className="mx-auto max-w-6xl px-3 sm:px-4">
+          <div className="flex flex-col items-stretch justify-center gap-6 sm:gap-8 md:flex-row md:items-start md:gap-8">
+            <article className="mx-auto flex w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md md:mx-0 md:max-w-none md:flex-1 md:min-w-0">
+              <div className="border-b border-slate-100 bg-white px-3 py-3 text-center sm:py-3.5">
+                <p className="text-sm font-semibold text-blue-950 sm:text-base">Etkinlik afişi</p>
+              </div>
+              <div className="relative h-[220px] w-full overflow-hidden bg-white sm:h-[240px] md:h-[260px] lg:h-[280px]">
                 <Image
                   src="/afis.jpg"
                   alt="DEKDER etkinlik afişi"
                   fill
                   className="object-contain object-center"
-                  sizes="450px"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </article>
-            <article className="w-full max-w-[450px] overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md">
-              <div className="relative h-[550px] w-full bg-white">
+            <article className="mx-auto flex w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md md:mx-0 md:max-w-none md:flex-1 md:min-w-0">
+              <div className="border-b border-slate-100 bg-white px-3 py-3 text-center sm:py-3.5">
+                <p className="text-sm font-semibold text-blue-950 sm:text-base">
+                  İkram Hano - Dernek Başkanı
+                </p>
+              </div>
+              <div className="relative h-[220px] w-full overflow-hidden bg-white sm:h-[240px] md:h-[260px] lg:h-[280px]">
                 <Image
                   src="/baskan-mesaj.jpg"
                   alt="İkram Hano — Dernek Başkanı"
                   fill
                   className="object-contain object-center"
-                  sizes="450px"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
-              </div>
-              <div className="border-t border-slate-100 bg-white px-3 py-3 text-center">
-                <p className="text-sm font-semibold text-blue-950">
-                  İkram Hano - Dernek Başkanı
-                </p>
               </div>
             </article>
           </div>
         </div>
       </section>
 
-      <section className="relative z-20 -mt-2 border-y border-slate-200/80 bg-white shadow-md md:-mt-4">
-        <div className="mx-auto max-w-6xl px-4 py-10 md:py-12">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="text-2xl font-bold tracking-tight text-blue-950 md:text-3xl">
-                Teşekkürlerimizle
-              </h2>
-              <p className="mt-1 max-w-xl text-sm text-slate-600 md:text-base">
-                Destekçilerimizin iyiliği sayesinde dayanışma büyüyor. Son bağışlar
-                kayan yazı ile anılıyor.
+      {recentDonations.length > 0 ? (
+        <section className="border-b border-slate-200 bg-white py-12 md:py-16">
+          <div className="mx-auto flex max-w-2xl flex-col items-center px-4 text-center">
+            <h2 className="text-2xl font-bold tracking-tight text-blue-950 md:text-3xl">
+              Teşekkürlerimizle
+            </h2>
+            <p className="mt-3 text-base text-slate-600 md:text-lg">
+              Destekçilerimizin iyiliği sayesinde dayanışma büyüyor. Son bağışlarımız için
+              minnettarız.
+            </p>
+            <div className="mt-8 w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-8 shadow-sm md:px-8 md:py-10">
+              <p className="text-lg font-semibold leading-relaxed text-blue-950 md:text-xl">
+                {donationThankYouLine(recentDonations[0])}
               </p>
-              {donationFallback ? (
-                <p className="mt-2 text-xs text-amber-800/90">
-                  Henüz veritabanında bağış kaydı yok — örnek teşekkür mesajları
-                  gösteriliyor. İlk bağışınızı{" "}
-                  <Link href="/bagis" className="font-semibold underline">
-                    bağış sayfasından
-                  </Link>{" "}
-                  ekleyebilirsiniz.
-                </p>
+              {recentDonations.length > 1 ? (
+                <ul className="mt-6 space-y-3 border-t border-slate-200 pt-6 text-center text-sm leading-relaxed text-slate-700 md:text-base">
+                  {recentDonations.slice(1).map((d) => (
+                    <li key={d.id}>{donationThankYouLine(d)}</li>
+                  ))}
+                </ul>
               ) : null}
             </div>
-            <Link
-              href="/bagis"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-red-600 hover:text-red-700 hover:underline"
-            >
-              Siz de bağış yapın
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
           </div>
-          <div className="mt-6">
-            <DonationMarquee donations={donationsForMarquee} />
-          </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
-      <section className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+      <section className="mx-auto max-w-6xl px-3 py-12 sm:px-4 md:py-20">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-2xl font-bold tracking-tight text-blue-950 md:text-3xl">
               Son Duyurular ve Haberler
             </h2>
-            {newsFallback ? (
-              <p className="mt-2 max-w-2xl text-xs text-slate-500">
-                Veritabanında duyuru yok — tasarımın korunması için örnek kartlar
-                gösteriliyor.{" "}
-                <code className="rounded bg-slate-100 px-1 py-0.5 text-[11px]">
-                  npm run db:seed
-                </code>{" "}
-                ile örnek içerik ekleyebilirsiniz.
-              </p>
-            ) : null}
           </div>
           <Link
             href="/duyurular"
@@ -306,7 +264,7 @@ export default async function Home() {
                   className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg"
                 >
                   <div className="h-1.5 w-full bg-gradient-to-r from-blue-950 via-blue-900 to-red-600" />
-                  <div className="flex flex-1 flex-col p-6">
+                  <div className="flex flex-1 flex-col p-4 sm:p-6">
                     <time
                       dateTime={item.dateIso}
                       className="text-xs font-medium uppercase tracking-wide text-slate-500"

@@ -5,7 +5,7 @@ import type { NextRequest } from "next/server";
 const ADMIN_COOKIE_NAME = "dekder_admin_session";
 
 function getAdminSessionSecret(): string {
-  return process.env.ADMIN_SESSION_TOKEN ?? "dekder-admin-prototype-token-2026";
+  return process.env.ADMIN_SESSION_TOKEN ?? "3504";
 }
 
 export function middleware(request: NextRequest) {

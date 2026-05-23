@@ -42,6 +42,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+# admin yüklemeleri (yerel); klasör yapısı için .gitkeep tutulur
+/public/uploads/*
+!/public/uploads/.gitkeep
+
 # sqlite
 /prisma/dev.db
 /prisma/dev.db-journal

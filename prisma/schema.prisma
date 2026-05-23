@@ -66,3 +66,12 @@ model Article {
 
   @@map("articles")
 }
+
+model GalleryImage {
+  id        String   @id @default(cuid())
+  imageUrl  String   @map("image_url")
+  caption   String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("gallery_images")
+}

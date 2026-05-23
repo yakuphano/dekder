@@ -45,46 +45,127 @@ export default function EleskirtPage() {
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-blue-950 md:text-5xl md:leading-tight">
             Tarihi ve Doğasıyla Eleşkirt
           </h1>
-          <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">
-            Aşağıdaki metinler tanıtım amaçlı örnek içeriktir; resmi veriler ve güncel
-            istatistikler kamu kaynaklarıyla desteklenmelidir.
-          </p>
+          <div className="mt-5 max-w-3xl space-y-4 text-base leading-relaxed text-slate-600 md:text-lg">
+            <p>
+              Doğu Anadolu&apos;nun köklü geçmişe sahip kapısı Eleşkirt, heybetli
+              Kösedağ&apos;ın eteklerinde, bereketli bir ovanın kalbinde yer alır.
+              Urartulardan Osmanlıya uzanan tarihiyle pek çok medeniyete ev sahipliği
+              yapmış olan ilçemiz, stratejik konumu ve zengin kültürel mozaiğiyle
+              bölgenin en köklü yerleşim merkezlerinden biridir.
+            </p>
+            <p>
+              Sert karasal iklimin şekillendirdiği eşsiz doğası, geniş meraları, dillere
+              destan yöresel mutfağı ve misafirperver insanıyla Eleşkirt; geçmişin
+              mirasını geleceğe taşıyan kadim bir kültürün adıdır. Dünya Eleşkirtliler
+              Kültür ve Dayanışma Derneği (DEKDER) olarak, bu değerli mirası ve memleket
+              bağlarımızı dünyanın dört bir yanındaki hemşehrilerimizle birlikte
+              yaşatmaktan gurur duyuyoruz.
+            </p>
+          </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-6xl space-y-16 px-4 py-14 md:space-y-24 md:py-20">
         {/* Zigzag 1: metin sol, görsel sağ (md+) */}
-        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
+        <div className="grid items-start gap-10 md:grid-cols-2 md:gap-14">
           <div className="order-2 md:order-1">
             <h2 className="text-2xl font-bold text-blue-950 md:text-3xl">
               Coğrafya ve iklim
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-slate-700 md:text-base">
-              Eleşkirt, yüksek platolar ve derin vadilerle çevrili, kışlarında kar
-              örtüsüyle büyüleyen bir doğaya sahiptir. Yazın serin geçen geceleri ve
-              temiz dağ havası, yaylacılık ve doğa rotaları için uygun bir zemin sunar.
-              Bu paragraf, ziyaretçiye kısa ve sembolik bir coğrafya özeti verir.
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-slate-700 md:text-base">
-              Dereler ve meralar, geleneksel hayvancılığın ve köy ekonomisinin
-              sürdürülmesinde önemli rol oynar; manzara ise fotoğraf ve doğa
-              severlerine ilham verir.
-            </p>
+            <div className="mt-6 space-y-8">
+              <div>
+                <h3 className="text-lg font-bold text-blue-950 md:text-xl">
+                  Coğrafi Yapı ve Konum
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+                  Ağrı ilinin batısında, tarihi ve stratejik bir kavşakta yer alan Eleşkirt;
+                  dağlık, engebeli ve heybetli coğrafyasıyla Doğu Anadolu&apos;nun karakteristik
+                  tüm özelliklerini taşır. Deniz seviyesinden ortalama 1811 metre yükseklikte
+                  konumlanan ilçemiz, bölgenin en yüksek ve özel yerleşim alanlarından biridir.
+                </p>
+                <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate-700 md:text-base">
+                  <li>
+                    <span className="font-semibold text-blue-950">Stratejik Konum:</span>{" "}
+                    Erzurum-Ağrı karayolu üzerinde yer alan ilçemiz, hem ulaşım kolaylığına
+                    sahiptir hem de Ağrı il merkezine yakınlığıyla önemli bir lojistik
+                    noktadadır.
+                  </li>
+                  <li>
+                    <span className="font-semibold text-blue-950">Yüzey Şekilleri:</span>{" "}
+                    Toplam 1529 km² yüzölçümüne sahip olan Eleşkirt, etrafını saran yüksek
+                    dağlar ve bu dağların arasında hayat bulan, tarıma elverişli verimli
+                    Eleşkirt Ovası ile çevrilidir.
+                  </li>
+                  <li>
+                    <span className="font-semibold text-blue-950">Zirveler ve Dağlar:</span>{" "}
+                    İlçenin kuzeyini süsleyen ve bölgenin simgesi haline gelen Kösedağ (2544 m),
+                    Eleşkirt coğrafyasının en heybetli yükseltisidir.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-blue-950 md:text-xl">
+                  İklim ve Bitki Örtüsü
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+                  Eleşkirt, sert karasal iklimin en net hissedildiği bölgelerden biridir. Bu
+                  zorlu ama bir o kadar da özel iklim yapısı, ilçenin kültürünü, yaşam tarzını
+                  ve doğasını şekillendirmiştir.
+                </p>
+              </div>
+
+              <div>
+                <h4 className="text-base font-bold text-blue-950">
+                  Sıcaklık ve Yağış Dengesi
+                </h4>
+                <ul className="mt-3 space-y-3 text-sm leading-relaxed text-slate-700 md:text-base">
+                  <li>
+                    <span className="font-semibold text-blue-950">Kış Mevsimi:</span> Kış
+                    ayları oldukça uzun, sert ve bol karlıdır. Sıcaklıklar sıkça -15°C ve
+                    altına düşer. Kışın yağan kar, kalın bir örtü halinde yerde uzun süre
+                    kalarak ilçeye adeta beyaz bir gelinlik giydirir.
+                  </li>
+                  <li>
+                    <span className="font-semibold text-blue-950">Yaz Mevsimi:</span> Yaz
+                    ayları ise kışın aksine hızlıca ısınan, sıcak ve kurak bir yapıya sahiptir.
+                    Yaz ortalaması 25°C seviyelerine kadar ulaşır ve bu dönemde yağış oldukça
+                    azdır.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="text-base font-bold text-blue-950">
+                  Doğal Bitki Örtüsü ve Yaşam
+                </h4>
+                <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+                  İlçenin yüksek kesimlerinde zengin bozkır (step) bitki örtüsü ve bahar
+                  aylarında rengarenk açan alpin çayırlar hakimdir.
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+                  <span className="font-semibold text-blue-950">Doğanın Ekonomiye Etkisi:</span>{" "}
+                  Eleşkirt&apos;in bu benzersiz coğrafi yapısı ve geniş meraları, ilçede
+                  hayvancılığın en temel geçim kaynağı olmasını sağlamış ve köklü bir yaylacılık
+                  kültürünü doğurmuştur.
+                </p>
+              </div>
+            </div>
           </div>
           <div className="order-1 md:order-2">
             <Figure
-              src="/eleskirt-manzara.jpg"
-              alt="Eleşkirt ilçesi genel manzarası ve Kösedağ"
+              src="/eleskirt-harita.jpg"
+              alt="Eleşkirt ilçesinin haritadaki konumu, Ağrı ili"
               priority
             />
             <p className="mt-2 text-center text-xs text-slate-500">
-              Eleşkirt ve Kösedağ silüeti — yerel arşiv görseli.
+              Coğrafi konum — harita görseli.
             </p>
           </div>
         </div>
 
         {/* Zigzag 2: görsel sol, metin sağ */}
-        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
+        <div className="grid items-start gap-10 md:grid-cols-2 md:gap-14">
           <div>
             <Figure
               src="/kosedag.jpg"
@@ -96,44 +177,92 @@ export default function EleskirtPage() {
           </div>
           <div>
             <h2 className="text-2xl font-bold text-blue-950 md:text-3xl">
-              Tarihçeye kısa bir bakış
+              Tarihçeye Kısa Bir Bakış
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-slate-700 md:text-base">
-              Bölgenin tarihsel hafızası; göç yolları, küçük kasaba yaşamı ve komşuluk
-              gelenekleri üzerinden şekillenir. Eleşkirt, hemşehrilerinin birbirine
-              tutunmasını ve ortak değerleri korumasını önemseyen bir kültür taşır.
+              Eleşkirt&apos;in tarihi, bölgenin en eski ve güçlü medeniyetlerinden biri olan
+              Urartulara kadar uzanmaktadır. İlçe sınırları içinde yer alan Toprakkale ve
+              Pirabat köylerindeki kalıntılar, antik dönemlerde bölgenin ne denli önemli bir
+              askeri ve idari merkez olduğunu göstermektedir. Stratejik konumu ve verimli
+              ovası nedeniyle tarih boyunca dikkat çeken Eleşkirt; Medler, Persler,
+              Romalılar, Bizanslılar ve Selçukluların ardından Osmanlı İmparatorluğu&apos;nun
+              hakimiyetine girmiştir.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-slate-700 md:text-base">
-              Bu metin yer tutucudur; gerçek tarih anlatımı için arşiv belgeleri ve
-              uzman görüşleriyle zenginleştirilmesi önerilir.
+              Tarihi İpek Yolu güzergahında ve Trabzon-Ağrı transit hattı üzerinde yer alması,
+              ilçeyi yüzyıllar boyunca orduların ve ticaret kervanlarının geçiş noktası
+              haline getirmiştir. Tarihsel adı &quot;Alaşkert&quot; veya halk arasındaki yaygın
+              kullanımıyla &quot;Zêtka&quot; (Zedikan) olan ilçe merkezi, 1926 yılında uluslararası
+              ulaşım yollarının avantajı gözetilerek bugünkü modern konumuna taşınmıştır.
+              Yüzyıllar boyunca farklı kültürlerin, Kafkasya göçmenlerinin ve bölgenin kadim
+              halklarının barış içinde bir arada yaşadığı Eleşkirt, bu zengin tarihi mirası
+              güçlü bir dayanışma kültürüyle günümüze kadar taşımayı başarmıştır.
             </p>
           </div>
         </div>
 
         {/* Zigzag 3: metin sol, görsel sağ */}
-        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
-          <div className="order-2 md:order-1">
+        <div className="grid items-start gap-10 md:grid-cols-2 md:gap-14">
+          <div className="order-2 space-y-8 md:order-1">
             <h2 className="text-2xl font-bold text-blue-950 md:text-3xl">
-              Kültür ve yöresel değerler
+              Kültür ve Yöresel Değerler
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-slate-700 md:text-base">
-              Sofrada tereyağı ve otlu peynir, sohbette çay ve misafirperverlik; düğün
-              ve bayramlarda ise halk oyunları ve müzik bir araya gelir. Bu değerler,
-              DEKDER&apos;in dayanışma dilinin de kaynağıdır.
+            <p className="text-sm leading-relaxed text-slate-700 md:text-base">
+              Eleşkirt&apos;in kültürel kimliği; sofrada keşkek, halise ve çiçal peyniriyle,
+              sohbette demli bir çay ve samimi bir misafirperverlikle, düğün ve bayramlarda
+              ise köklü halk oyunları ve dengbêjlik/aşık gelenekleriyle hayat bulur.
+              Nesiller boyu aktarılan bu köklü değerler, DEKDER&apos;in dünyadaki tüm
+              Eleşkirtlileri bir araya getiren dayanışma dilinin de en büyük kaynağıdır.
             </p>
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700 md:text-base">
-              <li>Mahalle dayanışması ve gönüllülük gelenekleri</li>
-              <li>El emeği ve küçük üretim pratikleri</li>
-              <li>Gençlerin kültürel mirasla buluşması için etkinlik alanları</li>
-            </ul>
+
+            <div>
+              <h3 className="text-lg font-bold text-blue-950 md:text-xl">
+                Mahalle Dayanışması ve Gönüllülük Gelenekleri
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+                İlçemizin sert iklimi ve zorlu coğrafi şartları, tarih boyunca güçlü bir
+                yardımlaşma kültürünü zorunlu kılmıştır. Eleşkirt&apos;te taziye, düğün ve
+                hasat dönemlerinde hayata geçen &quot;imece&quot; geleneği, mahalle
+                dayanışmasının en somut örneğidir. Kimsenin yalnız kalmadığı, sevincin de
+                kederin de ortakça paylaşıldığı bu gönüllülük esası, derneğimizin gurbet
+                ile sıla arasında kurduğu köprünün temel harcını oluşturur.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-blue-950 md:text-xl">
+                El Emeği ve Küçük Üretim Pratikleri
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+                Yüksek meralarda binbir çeşit şifalı otla beslenen hayvanların sütünden yapılan
+                örgü (çiçal) peyniri, tereyağı, geleneksel yöntemlerle dokunan halı ve
+                kilimler, Eleşkirt&apos;in el emeğine dayalı ekonomik mirasıdır. Ahıska,
+                Terekeme ve Kürt kültürlerinin mutfağa yansıması olan ve sabırla hazırlanan
+                geleneksel hamur işleri ile kışlık hazırlıklar, üretimde kadının ve aile içi
+                dayanışmanın gücünü simgeler.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-blue-950 md:text-xl">
+                Gençlerin Kültürel Mirasla Buluşması
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+                Köklerinden kopmayan bir gelecek inşa etmek amacıyla, yeni nesillerin bu zengin
+                mirasla bağ kurmasını önemsiyoruz. Düzenleyeceğimiz kültürel festivaller,
+                gençlik buluşmaları, yöresel mutfak atölyeleri ve folklor etkinlikleriyle,
+                Eleşkirt&apos;in kadim geleneklerini, dilini, müziğini ve komşuluk ahlakını
+                genç kuşaklara aktaracak canlı dinamik alanlar yaratıyoruz.
+              </p>
+            </div>
           </div>
           <div className="order-1 md:order-2">
             <Figure
-              src="/eleskirt-harita.jpg"
-              alt="Eleşkirt ilçesinin haritadaki konumu, Ağrı ili"
+              src="/eleskirt-manzara.jpg"
+              alt="Eleşkirt ilçesi genel manzarası ve Kösedağ"
             />
             <p className="mt-2 text-center text-xs text-slate-500">
-              Coğrafi konum — harita görseli.
+              Eleşkirt ve Kösedağ silüeti — yerel arşiv görseli.
             </p>
           </div>
         </div>

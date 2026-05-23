@@ -2,12 +2,32 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
 import { AdminNewArticleForm } from "@/components/admin-new-article-form";
+import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "Yeni köşe yazısı",
 };
 
-export default function AdminYeniKoseYazisiPage() {
+export default async function AdminYeniKoseYazisiPage() {
+  let galleryOptions: { id: string; previewUrl: string; label: string }[] = [];
+  try {
+    const rows = await prisma.galleryImage.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 100,
+      select: { id: true, imageUrl: true, caption: true },
+    });
+    galleryOptions = rows.map((row) => ({
+      id: row.id,
+      previewUrl: row.imageUrl,
+      label:
+        row.caption?.trim() ||
+        row.imageUrl.replace(/^.*\//, "").slice(0, 56) ||
+        "Görsel",
+    }));
+  } catch {
+    galleryOptions = [];
+  }
+
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
@@ -22,10 +42,11 @@ export default function AdminYeniKoseYazisiPage() {
           Yeni köşe yazısı
         </h1>
         <p className="mt-1 text-sm text-slate-600">
-          Yazar bilgileri ve metin kaydedildikten sonra site köşe yazıları bölümünde yayınlanır.
+          Yazar fotoğrafını yükleyin veya galeriden seçin. Kayıt site köşe yazıları bölümünde
+          yayınlanır.
         </p>
       </div>
-      <AdminNewArticleForm />
+      <AdminNewArticleForm galleryOptions={galleryOptions} />
     </div>
   );
 }
